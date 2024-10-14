@@ -1,7 +1,6 @@
 package org.example.app.db.entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Student {
     private Long id;
@@ -16,15 +15,15 @@ public class Student {
    public Student(long id, String name, String lastName) {
    }
 
-    public ArrayList<Pagesat> getPagesa() {
+    public ArrayList<Pagesa> getPagesa() {
         return pagesa;
     }
 
-    public void setPagesa(ArrayList<Pagesat> pagesa) {
+    public void setPagesa(ArrayList<Pagesa> pagesa) {
         this.pagesa = pagesa;
     }
 
-    private  ArrayList<Pagesat>pagesa;
+    private  ArrayList<Pagesa>pagesa;
 
     public Student(Long id, String name, int age) {
         this.id = id;

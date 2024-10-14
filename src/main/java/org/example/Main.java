@@ -165,42 +165,6 @@ public class Main {
                 while(qendrimiNeKurs){
                     pagaTotale = pagaTotale + pagesaMujore;
                 }
-            } else if(input.equals("5")){
-                System.out.println("Enter your id: ");
-                String idLogin = scanner.nextLine();
-                System.out.println("Enter your name: ");
-                String nameLogin = scanner.nextLine();
-                System.out.println("Enter your lastName: ");
-                String lastNameLogin = scanner.nextLine();
-
-//                if(idLogin == null || nameLogin == null || lastNameLogin == null){
-//                    System.out.println("You cant leave i blank");
-//                }
-                Student studentiLogin = studentRepo.findStudentById(Long.valueOf(idLogin));
-
-                Student logInedStudent = new Student();
-                if(idLogin.isEmpty()){
-                        System.out.println("This user does not existttttttt");
-                    }else {
-                     logInedStudent.setId(studentiLogin.getId());
-                    }
-                if(nameLogin.isEmpty()){
-                    System.out.println("This user does not existttttttt");
-
-                }else{
-                    logInedStudent.setName(studentiLogin.getName());
-
-                }
-
-                if(lastNameLogin.isEmpty()){
-                    System.out.println("This user does not existttttttt");
-
-                }else{
-                    logInedStudent.setLastName(studentiLogin.getLastName());
-
-                }
-                System.out.println(logInedStudent);
-
             }
             }
 

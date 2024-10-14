@@ -68,32 +68,7 @@ public class StudentRepository {
         }
         return null;
     }
-    public Student logIn(Long id,String name,String lastName){
-        String query = "select * from studentet where id = ?,name = ?, last_name = ?";
 
-        try(Connection lidhja = this.dbConnection.getConnection();
-            PreparedStatement urdheri = lidhja.prepareStatement(query)
-
-        ){
-            urdheri.setLong(1,id);
-            urdheri.setString(2,name);
-            urdheri.setString(3,lastName);
-            ResultSet response = urdheri.executeQuery();
-
-           if(response.next()){
-                return new Student(
-                        response.getLong("id"),
-                        response.getString("name"),
-                        response.getString("last_name")
-                );
-         }
-
-        }catch(SQLException e){
-            System.out.println("This user does not existeeeeeeeeeeeeeeeeee");
-            e.printStackTrace();
-        }
-        return new Student();
-    }
     public List<Student> kthejTeGjitheStudentet() {
         String query = "SELECT * FROM studentet";
         List<Student> studentList = new ArrayList<>();
@@ -172,14 +147,7 @@ public class StudentRepository {
             e.printStackTrace();
         }
     }
+    }
 
 
-
-//    public void pagesaEVitit(Double pagesa){
-//        int viti = 10;
-//        int pagesaMujore = 40;
-//
-//    }
-
-}
 
