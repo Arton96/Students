@@ -1,23 +1,25 @@
 package org.example.app.db.entity;
 
-import java.util.Date;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class Pagesa {
-private Long id;
-private Long studentId;
-private Date dataEFillimit;
-private Date dataEMbarimit;
-private boolean eshtePaguar;
-private String paguarMe;
+    private Long id;
+    private Long studentId;
+    private Date dataEFillimit;
+    private Date dataEMbarimit;
+    private Boolean eshtePaguar;
+    private Timestamp paguarMe;
 
-public Pagesa(Long id,Long studentId,Date dataEFillimit,Date dataEMbarimit,Boolean eshtePaguar,String eshtePaguarMe){
-    this.id = id;
-    this.studentId = studentId;
-    this.dataEFillimit = dataEFillimit;
-    this.dataEMbarimit = dataEFillimit;
-    this.eshtePaguar = eshtePaguar;
-    this.paguarMe = paguarMe;
-}
+    public Pagesa(Long id, Long studentId, Date dataEFillimit, Date dataEMbarimit, Boolean eshtePaguar, Timestamp paguarMe) {
+        this.id = id;
+        this.studentId = studentId;
+        this.dataEFillimit = dataEFillimit;
+        this.dataEMbarimit = dataEMbarimit;
+        this.eshtePaguar = eshtePaguar;
+        this.paguarMe = paguarMe;
+    }
 
     public Long getId() {
         return id;
@@ -39,7 +41,7 @@ public Pagesa(Long id,Long studentId,Date dataEFillimit,Date dataEMbarimit,Boole
         return dataEFillimit;
     }
 
-    public Date setDataEFillimit(Date dataEFillimit) {
+    public void setDataEFillimit(Date dataEFillimit) {
         this.dataEFillimit = dataEFillimit;
     }
 
@@ -47,23 +49,23 @@ public Pagesa(Long id,Long studentId,Date dataEFillimit,Date dataEMbarimit,Boole
         return dataEMbarimit;
     }
 
-    public Date setDataEMbarimit(Date dataEMbarimit) {
+    public void setDataEMbarimit(Date dataEMbarimit) {
         this.dataEMbarimit = dataEMbarimit;
     }
 
-    public boolean isEshtePaguar() {
+    public Boolean getEshtePaguar() {
         return eshtePaguar;
     }
 
-    public void setEshtePaguar(boolean eshtePaguar) {
+    public void setEshtePaguar(Boolean eshtePaguar) {
         this.eshtePaguar = eshtePaguar;
     }
 
-    public String getPaguarMe() {
+    public Timestamp getPaguarMe() {
         return paguarMe;
     }
 
-    public void setPaguarMe(String paguarMe) {
+    public void setPaguarMe(Timestamp paguarMe) {
         this.paguarMe = paguarMe;
     }
 
@@ -79,4 +81,5 @@ public Pagesa(Long id,Long studentId,Date dataEFillimit,Date dataEMbarimit,Boole
                 '}';
     }
 }
+
 

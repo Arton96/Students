@@ -1,6 +1,7 @@
 package org.example.app.db.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
     private Long id;
@@ -11,19 +12,16 @@ public class Student {
     private String birthPlace;
     private Character gender;
     private String course_name;
+    private List<Pagesa> pagesat;
+
+
 
    public Student(long id, String name, String lastName) {
    }
 
-    public ArrayList<Pagesa> getPagesa() {
-        return pagesa;
-    }
 
-    public void setPagesa(ArrayList<Pagesa> pagesa) {
-        this.pagesa = pagesa;
-    }
 
-    private  ArrayList<Pagesa>pagesa;
+
 
     public Student(Long id, String name, int age) {
         this.id = id;
@@ -42,7 +40,6 @@ public class Student {
         this.birthPlace = birthPlace;
         this.gender = gender;
         this.course_name = course_name;
-        this.pagesa = new ArrayList<>();
 
     }
 
@@ -103,6 +100,15 @@ public class Student {
     }
 
 
+    public List<Pagesa> getPagesat() {
+        return pagesat;
+    }
+
+    public void setPagesat(List<Pagesa> pagesat) {
+        this.pagesat = pagesat;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -137,7 +143,8 @@ public class Student {
                 ", phone='" + phone + '\'' +
                 ", birthPlace='" + birthPlace + '\'' +
                 ", gender=" + gender +
-                ", courseName='" + course_name + '\'' +
-                '}';
+                ", course_name='" + course_name + '\'' +
+                ", pagesat=" + pagesat
+                ;
     }
 }
