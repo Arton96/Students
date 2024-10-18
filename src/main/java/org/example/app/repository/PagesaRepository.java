@@ -39,19 +39,15 @@ public class PagesaRepository {
         }
 
     }
-    public List<Student> kthejPagesatEStudentit(Long studentId) {
+    public List<Pagesa> kthejPagesatEStudentit(Long studentId) {
         String query = "SELECT * FROM pagesat where studentId = ?";
         List<Pagesa> pagesaList = new ArrayList<>();
-
-
         try (Connection lidhja = this.dbConnection.getConnection()){
             PreparedStatement urdher = lidhja.prepareStatement(query);
             urdher.setLong(1,studentId);
             ResultSet respons = urdher.executeQuery();
 
-
             while (respons.next()) {
-
                 Pagesa pagesa = new Pagesa(
                         respons.getLong("id"),
                         respons.getLong("studentId"),
@@ -59,16 +55,33 @@ public class PagesaRepository {
                         respons.getDate("dataEMbarimit"),
                         respons.getBoolean("eshtePaguar"),
                         respons.getTimestamp("paguarMe")
-
                 );
                 pagesaList.add(pagesa);
             }
         } catch (SQLException e) {
-            System.out.println("Nuk mujta me i kthy studentet");
+            System.out.println("Nuk mujta me i kthy pagesat e studentit");
             e.printStackTrace();
         }
         return pagesaList;
     }
+    public void updatePagesa(Long id, Pagesa pagesa){
+        String query = "Update Pagesat set studentId = ?, dataEFillimit = ? , dataEMbarimit = ?,eshtePaguar = ?,paguarMe = ? where id = ?";
 
+        try(Connection lidhja = this.dbConnection.getConnection();
+            PreparedStatement urdheri = lidhja.prepareStatement(query)
+        ){
+            urdheri.setLong(1,pagesa.getStudentId());
+            urdheri.setDate(2,pagesa.getDataEFillimit());
+            urdheri.setDate(3,pagesa.getDataEMbarimit());
+            urdheri.setBoolean(4,pagesa.getEshtePaguar());
+            urdheri.setTimestamp(5,pagesa.getPaguarMe());
+            urdheri.executeUpdate();
+
+            urdheri.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("Nuk mujta me bo update pagesen");
+            e.printStackTrace();
+        }
+    }
 
 }
