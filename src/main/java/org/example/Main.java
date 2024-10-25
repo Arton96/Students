@@ -7,8 +7,12 @@ import org.example.app.db.entity.Student;
 import org.example.app.repository.PagesaRepository;
 import org.example.app.repository.StudentRepository;
 
+import java.security.Timestamp;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
+
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -45,6 +49,7 @@ public class Main {
             System.out.println("Press 3 if u want to delete a Students");
             System.out.println("Pres 4 if u want to create a new Student");
             System.out.println("Pres 5 if u want to see a Student");
+            System.out.println("Pres 6 if u want to make a payment");
             System.out.println("Press x if u want to exit");
 
             String input = scanner.nextLine();
@@ -157,6 +162,12 @@ public class Main {
                 Student newStudent = new Student(0L, emri1, mosha1, mbiemri1, tel1, vendlindja1, gender1.charAt(0), kursi1);
                 studentRepo.createStudent(newStudent);
 
+                newStudent = studentRepo.findLastStudent();
+                for(int i = 0; i<=10; i++){
+                    Pagesa pagesa = new Pagesa(0l, newStudent.getId(), new Date(2024,i+1,1),new Date(2024,i+2,1),false,null);
+                    pagesaRepo.createPagesa(pagesa);
+                }
+
                 System.out.println("Hello" + " " + emri1);
 
             } else if (input.equals("5")) {
@@ -174,7 +185,25 @@ public class Main {
                     studenti = studentRepo.findStudentById(Long.valueOf(id), false);
                 }
                 System.out.println(studenti);
-            }
+            }else if(input.equals("6")){
+                System.out.println("For which student do you want to pay,tell me the id");
+                String id = scanner.nextLine();
+
+
+                Student studenti = studentRepo.findStudentById(Long.valueOf(id),true);
+                System.out.println(studenti);
+
+                for(Pagesa p : studenti.getPagesat()){
+                    if(!p.getEshtePaguar()){
+
+                        p.setEshtePaguar(true);
+                        pagesaRepo.updatePagesa(p.getId(),p);
+                        System.out.println("Payment made successfully and expires at :" + p.getDataEMbarimit());
+                            break;
+                    }
+
+                }
+             }
 
         }
     }
