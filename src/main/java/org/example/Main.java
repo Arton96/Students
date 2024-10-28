@@ -177,6 +177,7 @@ public class Main {
                 Student studenti = studentRepo.findStudentById(Long.valueOf(id),true);
                 System.out.println(studenti);
                 studentService.makePayment(studenti);
+                System.out.println(".");
 
              }
 
