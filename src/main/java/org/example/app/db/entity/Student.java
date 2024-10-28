@@ -2,6 +2,7 @@ package org.example.app.db.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Student {
     private Long id;
@@ -15,12 +16,8 @@ public class Student {
     private List<Pagesa> pagesat;
 
 
-
-   public Student(long id, String name, String lastName) {
-   }
-
-
-
+    public Student(long id, String name, String lastName) {
+    }
 
 
     public Student(Long id, String name, int age) {
@@ -134,17 +131,28 @@ public class Student {
     }
 
     @Override
+
     public String toString() {
+        String pagesatStr = "";
+        if(this.pagesat != null) {
+            pagesatStr = this.pagesat.stream()
+                    .map(pagesa -> pagesa.getDataEFillimit() + " - " + pagesa.getDataEMbarimit() + " - " + pagesa.getEshtePaguar() + " - " + pagesa.getPaguarMe())
+                    .collect(Collectors.joining("\n"));
+        }
         return "Student{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + name + "\' " +
                 ", age=" + age +
-                ", lastName='" + lastName + '\'' +
+                ", lastName='" + lastName + "\'\n" +
                 ", phone='" + phone + '\'' +
-                ", birthPlace='" + birthPlace + '\'' +
+                ", birthplace='" + birthPlace + '\'' +
                 ", gender=" + gender +
-                ", course_name='" + course_name + '\'' +
-                ", pagesat=" + pagesat
-                ;
+                ", courseName='" + course_name + "\'\n" +
+                ", pagesat=" + pagesatStr +
+                '}';
     }
 }
+
+
+
+

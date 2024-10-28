@@ -6,9 +6,14 @@ import org.example.app.db.entity.Pagesa;
 import org.example.app.db.entity.Student;
 import org.example.app.repository.PagesaRepository;
 import org.example.app.repository.StudentRepository;
+import org.example.app.service.StudentService;
 
+import java.security.Timestamp;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
+
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -31,12 +36,10 @@ public class Main {
         StudentRepository studentRepo = new StudentRepository(dbc);
         PagesaRepository pagesaRepo = new PagesaRepository(dbc);
 
-//        studentRepo.createStudent(new Student("Rigon", 17));
 
-//        Student newStudent = new Student(0L,"Hajdar",21,"Hasani","949093","Podujeve",'M',"Pitagoras");
-//        studentRepo.createStudent(newStudent);
-
+        StudentService studentService = new StudentService(studentRepo,pagesaRepo);
         System.out.println(studentRepo.kthejTeGjitheStudentet());
+
 
         while (true) {
 
@@ -45,6 +48,7 @@ public class Main {
             System.out.println("Press 3 if u want to delete a Students");
             System.out.println("Pres 4 if u want to create a new Student");
             System.out.println("Pres 5 if u want to see a Student");
+            System.out.println("Pres 6 if u want to make a payment");
             System.out.println("Press x if u want to exit");
 
             String input = scanner.nextLine();
@@ -123,8 +127,6 @@ public class Main {
                     } else {
                         updatedStudent.setCourseName(courseNameR);
                     }
-
-
                     studentRepo.updateStudent(studenti.getId(), updatedStudent);
                 }
             } else if (input.equals("3")) {
@@ -155,26 +157,28 @@ public class Main {
                 String kursi1 = scanner.nextLine();
 
                 Student newStudent = new Student(0L, emri1, mosha1, mbiemri1, tel1, vendlindja1, gender1.charAt(0), kursi1);
-                studentRepo.createStudent(newStudent);
-
-                System.out.println("Hello" + " " + emri1);
-
+                studentService.createStudent(newStudent);
             } else if (input.equals("5")) {
                 System.out.println("Which student do you want to see? Tell me the id:");
                 String id = scanner.nextLine();
                 Student studenti;
-                //System.out.println(studenti);
                 System.out.println("If u want to see the payments of the student write y, otherwise press enter");
                 String answ = scanner.nextLine();
                 if (answ.equals("y")) {
-//                    List<Pagesa> pagesat = pagesaRepo.kthejPagesatEStudentit(studenti.getId());
-//                    studenti.setPagesat(pagesat);
+
                     studenti = studentRepo.findStudentById(Long.valueOf(id), true);
                 }else{
                     studenti = studentRepo.findStudentById(Long.valueOf(id), false);
                 }
                 System.out.println(studenti);
-            }
+            }else if(input.equals("6")){
+                System.out.println("For which student do you want to pay,tell me the id");
+                String id = scanner.nextLine();
+                Student studenti = studentRepo.findStudentById(Long.valueOf(id),true);
+                System.out.println(studenti);
+                studentService.makePayment(studenti);
+
+             }
 
         }
     }
