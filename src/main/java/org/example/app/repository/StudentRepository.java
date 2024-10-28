@@ -121,15 +121,10 @@ public class StudentRepository {
                 if (genderRespStr != null) {
                     genderResponse = genderRespStr.charAt(0);
                 }
-
                 student = new Student(response.getLong("studentId"), response.getString("name"), response.getInt("age"), response.getString("lastName"), response.getString("phone"), response.getString("birthplace"), genderResponse, response.getString("courseName"));
-
-            }
-
-            return student;
-
-
-        } catch (SQLException e) {
+}
+                return student;
+            } catch (SQLException e) {
             System.out.println("Nuk mujta me gjet studentin.");
             e.printStackTrace();
         }
@@ -140,13 +135,11 @@ public class StudentRepository {
         String query = "SELECT * FROM studentet";
         List<Student> studentList = new ArrayList<>();
 
-
-        try (Connection lidhja = this.dbConnection.getConnection();
+             try (Connection lidhja = this.dbConnection.getConnection();
              PreparedStatement urdher = lidhja.prepareStatement(query);
              ResultSet respons = urdher.executeQuery()) {
 
-
-            while (respons.next()) {
+                 while (respons.next()) {
                 String genderStr = respons.getString("gender");
                 char gender = 0;
                 if(genderStr != null){
@@ -181,7 +174,6 @@ public class StudentRepository {
         ){
             String genderStr = student.getGender() +"";
 
-
             urdheri.setString(1,student.getName());
             urdheri.setInt(2,student.getAge());
             urdheri.setString(3,student.getLastName());
@@ -190,7 +182,6 @@ public class StudentRepository {
             urdheri.setString(6, genderStr.charAt(0) + "");
             urdheri.setString(7,student.getCourseName());
             urdheri.setLong(8,id);
-
 
             urdheri.executeUpdate();
         }catch (SQLException e){
@@ -214,7 +205,7 @@ public class StudentRepository {
             e.printStackTrace();
         }
     }
-    }
+}
 
 
 
