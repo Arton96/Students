@@ -4,11 +4,11 @@ import org.example.app.db.DBConnection;
 import org.example.app.db.entity.Pagesa;
 import org.example.app.db.entity.Student;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PagesaRepository {
@@ -70,20 +70,21 @@ public class PagesaRepository {
         try(Connection lidhja = this.dbConnection.getConnection();
             PreparedStatement urdheri = lidhja.prepareStatement(query)
         ){
-            //System.out.println(pagesa);
             urdheri.setLong(1,pagesa.getStudentId());
             urdheri.setDate(2,pagesa.getDataEFillimit());
             urdheri.setDate(3,pagesa.getDataEMbarimit());
             urdheri.setBoolean(4,pagesa.getEshtePaguar());
-            urdheri.setTimestamp(5,pagesa.getPaguarMe());
+            LocalDate currentDate = LocalDate.now();
+            int currentDay = currentDate.getDayOfMonth();
+            Month currentMonth = currentDate.getMonth();
+            int currentYear = currentDate.getYear();
+            urdheri.setTimestamp(5,new Timestamp(currentYear - 1900,currentMonth.getValue()-1,currentDay,0,0,0,0));
             urdheri.setLong(6,id);
-
             urdheri.executeUpdate();
         }catch (SQLException e){
             System.out.println("Nuk mujta me bo update pagesen");
             e.printStackTrace();
         }
-
     }
 
-        }
+}

@@ -6,6 +6,7 @@ import org.example.app.db.entity.Pagesa;
 import org.example.app.db.entity.Student;
 import org.example.app.repository.PagesaRepository;
 import org.example.app.repository.StudentRepository;
+import org.example.app.service.StudentService;
 
 import java.security.Timestamp;
 import java.sql.Date;
@@ -35,12 +36,10 @@ public class Main {
         StudentRepository studentRepo = new StudentRepository(dbc);
         PagesaRepository pagesaRepo = new PagesaRepository(dbc);
 
-//        studentRepo.createStudent(new Student("Rigon", 17));
 
-//        Student newStudent = new Student(0L,"Hajdar",21,"Hasani","949093","Podujeve",'M',"Pitagoras");
-//        studentRepo.createStudent(newStudent);
-
+        StudentService studentService = new StudentService(studentRepo,pagesaRepo);
         System.out.println(studentRepo.kthejTeGjitheStudentet());
+
 
         while (true) {
 
@@ -128,8 +127,6 @@ public class Main {
                     } else {
                         updatedStudent.setCourseName(courseNameR);
                     }
-
-
                     studentRepo.updateStudent(studenti.getId(), updatedStudent);
                 }
             } else if (input.equals("3")) {
@@ -160,26 +157,15 @@ public class Main {
                 String kursi1 = scanner.nextLine();
 
                 Student newStudent = new Student(0L, emri1, mosha1, mbiemri1, tel1, vendlindja1, gender1.charAt(0), kursi1);
-                studentRepo.createStudent(newStudent);
-
-                newStudent = studentRepo.findLastStudent();
-                for(int i = 0; i<=10; i++){
-                    Pagesa pagesa = new Pagesa(0l, newStudent.getId(), new Date(2024,i+1,1),new Date(2024,i+2,1),false,null);
-                    pagesaRepo.createPagesa(pagesa);
-                }
-
-                System.out.println("Hello" + " " + emri1);
-
+                studentService.createStudent(newStudent);
             } else if (input.equals("5")) {
                 System.out.println("Which student do you want to see? Tell me the id:");
                 String id = scanner.nextLine();
                 Student studenti;
-                //System.out.println(studenti);
                 System.out.println("If u want to see the payments of the student write y, otherwise press enter");
                 String answ = scanner.nextLine();
                 if (answ.equals("y")) {
-//                    List<Pagesa> pagesat = pagesaRepo.kthejPagesatEStudentit(studenti.getId());
-//                    studenti.setPagesat(pagesat);
+
                     studenti = studentRepo.findStudentById(Long.valueOf(id), true);
                 }else{
                     studenti = studentRepo.findStudentById(Long.valueOf(id), false);
@@ -188,21 +174,11 @@ public class Main {
             }else if(input.equals("6")){
                 System.out.println("For which student do you want to pay,tell me the id");
                 String id = scanner.nextLine();
-
-
                 Student studenti = studentRepo.findStudentById(Long.valueOf(id),true);
                 System.out.println(studenti);
+                studentService.makePayment(studenti);
+                System.out.println(".");
 
-                for(Pagesa p : studenti.getPagesat()){
-                    if(!p.getEshtePaguar()){
-
-                        p.setEshtePaguar(true);
-                        pagesaRepo.updatePagesa(p.getId(),p);
-                        System.out.println("Payment made successfully and expires at :" + p.getDataEMbarimit());
-                            break;
-                    }
-
-                }
              }
 
         }
